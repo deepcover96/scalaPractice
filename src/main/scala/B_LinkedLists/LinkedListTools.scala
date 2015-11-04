@@ -50,4 +50,32 @@ object LinkedListTools {
       index += 1
     }
   }
+
+  /**
+    * Gets kth element from the end
+    * @param linkedList list to iterate through
+    * @param k The kth element from the end
+    * @return
+    */
+  def getFromEnd(linkedList: mutable.ListBuffer[Int], k: Int): Option[Int] = {
+    val arr: Array[Int] = new Array[Int](k+1)
+    var index: Int = 0
+    var flipped: Boolean = false
+
+    for(i <- linkedList.indices) {
+      arr(index) = linkedList(i)
+      index += 1
+      if(index > k) {
+        index = 0
+        flipped = true
+      }
+    }
+
+    if(!flipped) {
+      None
+    } else {
+      Some(arr(index))
+    }
+
+  }
 }
