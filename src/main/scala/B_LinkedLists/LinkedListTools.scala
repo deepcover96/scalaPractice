@@ -53,11 +53,16 @@ object LinkedListTools {
 
   /**
     * Gets kth element from the end
+    * O(n)
+    * Note: if we were using a real-singly-linked list, we can have 2 pointers
+    * move the first one k nodes, then move them together till the first one gets
+    * to the end.  The first one will land on the correct location.
     * @param linkedList list to iterate through
     * @param k The kth element from the end
     * @return
     */
   def getFromEnd(linkedList: mutable.ListBuffer[Int], k: Int): Option[Int] = {
+    if(k <= 0) return None
     val arr: Array[Int] = new Array[Int](k+1)
     var index: Int = 0
     var flipped: Boolean = false
