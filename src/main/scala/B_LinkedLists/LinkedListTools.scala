@@ -1,5 +1,7 @@
 package B_LinkedLists
 
+import B_LinkedLists.LinkedList.SingleLinkedNode
+
 import scala.collection.mutable
 
 object LinkedListTools {
@@ -82,5 +84,52 @@ object LinkedListTools {
       Some(arr(index))
     }
 
+  }
+
+  /**
+    * Remove a node from a singly-linked list.  The solution is to copy the entire remainder of the list back one
+    * place over the deleted node.  This is O(n-k), with k bing the place of the deleted node.  In scala we are using
+    * a list buffer so we will simulate this by traversing the list and copying index values back one place, then
+    * finally removing the lat item.
+    * @param linkedList the list to modify
+    * @param k the node that needs to be removed
+    * @return true if successful, false if error (k too big or too small
+    */
+  def removeSingleNode(linkedList: mutable.ListBuffer[Int], k: Int): Boolean = {
+    if(k >= linkedList.length) return false //the equivalent in linked list will be getting to end before kth index
+    if(k < 0) return false
+    val stop = linkedList.length - 2
+
+    if(stop > 0) {
+      for(i <- k to stop) {
+        linkedList(i) = linkedList(i + 1)
+      }
+    }
+    linkedList.remove(linkedList.length - 1)
+    true
+  }
+
+  /**
+    * Remove a node from a singly-linked list.  The solution is to copy the entire remainder of the list back one
+    * place over the deleted node.  This is O(n-k), with k bing the place of the deleted node.
+    * I use my own defined linked list node class
+    * @param node the node that needs to be removed
+    * @return
+    */
+  def removeSingleNode2(node: SingleLinkedNode): Boolean = {
+    if(node.nextNode.isEmpty) return false  //we can't remove ourselves because we don't have access to previous node
+
+    def copyNext(n: SingleLinkedNode, prev: SingleLinkedNode): Boolean = {
+      if(n.nextNode.isDefined) {
+        n.value = n.nextNode.get.value
+        copyNext(n.nextNode.get, n)
+      } else {
+        //remove the current node, which is the last node
+        prev.nextNode = None
+        true
+      }
+    }
+    node.value = node.nextNode.get.value
+    copyNext(node.nextNode.get, node)
   }
 }
