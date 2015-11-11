@@ -42,4 +42,6 @@ class StackWithMin {
       None
     }
   }
+
+  // todo: a separate stack that just tracks the min changes for stack position would be more space efficient
 }
