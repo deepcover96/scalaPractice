@@ -11,9 +11,9 @@ class Test_1_6 extends FlatSpec {
     // 22222
     // 33333
     // 44444
-    Util.populateMatrix(bitmap)
+    Matrix.populateMatrix(bitmap)
 
-    Util.printMatrix(bitmap)
+    Matrix.printMatrix(bitmap)
     assert(bitmap(0)(0) == 0)
     assert(bitmap(1)(0) == 0)
     assert(bitmap(2)(0) == 0)
@@ -22,7 +22,7 @@ class Test_1_6 extends FlatSpec {
 
     ArrayTools.rotateImage(bitmap)
 
-    Util.printMatrix(bitmap)
+    Matrix.printMatrix(bitmap)
     assert(bitmap(0)(0) == 4)
     assert(bitmap(1)(0) == 3)
     assert(bitmap(2)(0) == 2)
@@ -32,10 +32,10 @@ class Test_1_6 extends FlatSpec {
 
     val bitmap2 = Array.ofDim[Int](10,10)
 
-    Util.populateMatrix(bitmap2)
+    Matrix.populateMatrix(bitmap2)
 
-    Util.printMatrix(bitmap2)
+    Matrix.printMatrix(bitmap2)
     ArrayTools.rotateImage(bitmap2)
-    Util.printMatrix(bitmap2)
+    Matrix.printMatrix(bitmap2)
   }
 }

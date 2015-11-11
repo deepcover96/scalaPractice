@@ -3,7 +3,7 @@ package A_ArraysAndStrings
 /*
  * Created by Administrator on 8/9/15.
  */
-object Util {
+object Matrix {
   /**
    * Prints an N*M matrix
    * @param matrix 2D array to print
