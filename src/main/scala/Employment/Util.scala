@@ -13,7 +13,7 @@ import scala.collection.mutable
  */
 object Util {
   /**
-    * Reverses a string in-place in O(n/2) time.
+    * Reverses a string in-place.
     * @param str The string to reverse
     * @return The string reversed
     */

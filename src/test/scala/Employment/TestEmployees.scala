@@ -12,8 +12,16 @@ class TestEmployees extends FlatSpec {
   "Singleton class" should "Sort collection of Employee objects using employee's first name." in {
     assert(EmployeeManager.employeeCount() == 0)
 
-    // Populate
+    // edge case with no records
+    EmployeeManager.sortByFirstName()
+    assert(EmployeeManager.employeeCount() == 0)
+
+    // edge case with 1 record
     EmployeeManager.addEmployee("Jefferson", "Pierce")
+    EmployeeManager.sortByFirstName()
+    assert(EmployeeManager.employeeCount() == 1)
+
+    // Populate with the rest of employees.  We also have some people with the same first and last names.
     EmployeeManager.addEmployee("Steve", "Austin")
     EmployeeManager.addEmployee("Barda", "Free")
     EmployeeManager.addEmployee("Steven", "Rogers")

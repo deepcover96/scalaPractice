@@ -27,6 +27,13 @@ object EmployeeManager {
       employees(b) = temp
     }
 
+    /**
+      * Partition in two, which means move items that is <= pivot to left of partition,
+      * and items >= to pivot to the right of partition
+      * @param start This partition's start index
+      * @param end This partition's end index
+      * @return The index of the partition (last element of left partition)
+      */
     def partition(start: Int, end: Int): Int = {
       val pivot = employees(end).getFullName
       var f = start
@@ -50,6 +57,12 @@ object EmployeeManager {
       -1
     }
 
+    /**
+      * Partition array in two parts and recursively sort each partition
+      * return when partition is one character wide
+      * @param start
+      * @param end
+      */
     def sort(start: Int, end: Int): Unit = {
       if (start >= end) return
       val part = partition(start, end)
