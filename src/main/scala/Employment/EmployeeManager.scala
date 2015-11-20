@@ -60,8 +60,8 @@ object EmployeeManager {
     /**
       * Partition array in two parts and recursively sort each partition
       * return when partition is one character wide
-      * @param start
-      * @param end
+      * @param start This partition's start index
+      * @param end This partition's end index
       */
     def sort(start: Int, end: Int): Unit = {
       if (start >= end) return
