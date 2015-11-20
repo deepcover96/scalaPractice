@@ -4,7 +4,7 @@ import org.scalatest.FlatSpec
 import scala.collection.mutable
 
 class Test_1_2 extends FlatSpec {
-  "Reverse a string passed in as an array" should "reverse string taking into account null termonator" in {
+  "Reverse a string passed in as an array" should "reverse string taking into account null terminator" in {
     val arr: mutable.ArrayBuffer[Char] = mutable.ArrayBuffer[Char]('f', 'o', 'o', 'b', 'a', 'r', '\u0000')
     val str: String = ArrayTools.reverseString(arr)
 
