@@ -46,4 +46,38 @@ object Util {
     // return the array of characters as a string
     arr.mkString
   }
+
+  /**
+    * Find numbers in string and sum the number. Example String "abce15def17,13bd4c"
+    * Assumption: contiguous digits comprise 1 number
+    * @param str String containing numbers and characters
+    * @return Sum of all numbers
+    */
+  def sumOfNumbersInString(str: String): Int = {
+    val LowerLimit: Int = 47
+    val UpperLimit: Int = 58
+    val num: mutable.StringBuilder = new mutable.StringBuilder()
+    var sum: Int = 0
+
+    def isNumeral(c: Char): Boolean = {
+      if(c.toInt >= LowerLimit && c.toInt <= UpperLimit) {
+        true
+      } else {
+        false
+      }
+    }
+
+    for(c <- str) {
+      if(isNumeral(c)) {
+        num += c
+      } else {
+        if(num.nonEmpty) {
+          sum += num.toInt
+          num.clear()
+        }
+      }
+    }
+
+    sum
+  }
 }
