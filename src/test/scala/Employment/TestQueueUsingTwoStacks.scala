@@ -21,9 +21,7 @@ class TestQueueUsingTwoStacks extends FlatSpec {
     assert(stack.pop().contains(2))
     assert(stack.pop().contains(1))
 
-
     val queue: QueueUsingTwoStacks = new QueueUsingTwoStacks
-
 
     assert(queue.enqueue(1))
     assert(queue.enqueue(2))
@@ -48,8 +46,5 @@ class TestQueueUsingTwoStacks extends FlatSpec {
     assert(queue.dequeue().contains(8))
     assert(queue.dequeue().contains(5))
     assert(queue.dequeue().isEmpty)
-
-
-
   }
 }

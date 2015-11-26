@@ -80,4 +80,56 @@ object Util {
 
     sum
   }
+
+  /**
+    * Given an array of integers, identify duplicate values
+    * @param arr Array to search
+    * @return the count of values in the array that have at least one duplicate value
+    */
+  def findDuplicateNumbersInArray(arr: Array[Int]): Int = {
+    val duplicates: mutable.HashMap[Int, mutable.ListBuffer[Int]] = mutable.HashMap()
+    var i = 0
+
+    for(n <- arr) {
+      i += 1
+      if(!duplicates.contains(n)) {
+        duplicates += (n -> new mutable.ListBuffer())
+      }
+      duplicates(n) += i
+    }
+
+    duplicates.size
+  }
+
+  /**
+    * Given a matrix of characters, find all numbers
+    * @param matrix Matrix of characters
+    * @return List of tuples representing (row, column) where number found
+    */
+  def findNumbersInMatrix(matrix: Array[Array[Char]]): List[(Int, Int)] = {
+    val numbers: mutable.ListBuffer[(Int, Int)] = mutable.ListBuffer()
+    var rowNumber: Int = 0
+    var columnNumber: Int = 0
+
+    def isNumber(c: Char): Boolean = {
+      if(c.toInt > 47 && c.toInt < 58) {
+        true
+      } else {
+        false
+      }
+    }
+
+    for(row <- matrix) {
+      for(c <- row) {
+        if(isNumber(c)) {
+          numbers.append((rowNumber, columnNumber))
+        }
+        columnNumber += 1
+      }
+      columnNumber = 0
+      rowNumber += 1
+    }
+
+    numbers.toList
+  }
 }
