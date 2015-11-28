@@ -3,16 +3,17 @@ package C_StacksAndQueues.Stacks
 import scala.collection.mutable
 
 class SimpleStack(depth: Int) {
-  val arr: mutable.ArrayBuffer[Int] = mutable.ArrayBuffer.fill[Int](depth)(0)
-  var stackPointer = -1
+  private val arr: mutable.ArrayBuffer[Int] = mutable.ArrayBuffer.fill[Int](depth)(0)
+  private var stackPointer: Int = -1
+  private val MaxDepthIndex: Int = depth -1
 
   def push(num: Int): Boolean = {
-    if(depth == stackPointer) {
-      false
-    } else {
+    if(stackPointer < MaxDepthIndex) {
       stackPointer += 1
       arr(stackPointer) = num
       true
+    } else {
+      false
     }
   }
 
@@ -24,5 +25,9 @@ class SimpleStack(depth: Int) {
       stackPointer -= 1
       num
     }
+  }
+
+  def size: Int = {
+    stackPointer + 1
   }
 }
