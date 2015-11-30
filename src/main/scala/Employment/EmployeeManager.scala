@@ -39,10 +39,10 @@ object EmployeeManager {
       var f = start
       var b = end
       while (true) {
-        while (employees(f).getFullName < pivot) {
+        while (f <= end && employees(f).getFullName < pivot) {
           f += 1
         }
-        while (employees(b).getFullName > pivot) {
+        while (b >= start && employees(b).getFullName > pivot) {
           b -= 1
         }
         if (f > b) {

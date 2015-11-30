@@ -1,9 +1,10 @@
 package K_SortingAndSearching
 
 import Util.Sort
+import scala.collection.mutable.ListBuffer
 
-import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable
 
 
 object SortingSearchingTools {
@@ -81,60 +82,107 @@ object SortingSearchingTools {
     }
   }
 
+  private def lessThanChar(c1: Char, c2: Char): Boolean = {
+    if (c1 < c2) {
+      true
+    } else {
+      false
+    }
+  }
+  private def greaterThanChar(c1: Char, c2: Char): Boolean = {
+    if (c1 > c2) {
+      true
+    } else {
+      false
+    }
+  }
+
   /**
     * Sort a list of strings so that anagrams are next to each other
     * Approach:
-    *   We know that anagrams must have an equal number of characters, so we must identify these
-    *   We will need to do an individual letter count analysis to determine if two words are anagrams
+    *   Sort the letters of each word.
+    *   Then quick-sort everything.
+    *   We have to keep the original word unaltered
+    *   We create comparison functions for the generic version of quick-sort
     * @param arr The array of strings to sort
     */
-  def anagramSort(arr: ArrayBuffer[String]): ArrayBuffer[String] = {
-    val tempBuffer: ArrayBuffer[String] = ArrayBuffer()
-    val lengthMap: mutable.HashMap[Int, ArrayBuffer[(String, mutable.HashMap[Char, Int])]] = mutable.HashMap()
-
-    def getCharMap(index: Int): mutable.HashMap[Char, Int] = {
-      if(!lengthMap.contains(arr(index).length)) {
-        lengthMap += (arr(index).length -> new ArrayBuffer[(String, mutable.HashMap[Char, Int])])
-      }
-      val map = new mutable.HashMap[Char, Int]()
-      lengthMap(arr(index).length).append((arr(index), map))
-
-      map
-    }
-
-    def areAnagrams(word1: mutable.HashMap[Char, Int], word2: mutable.HashMap[Char, Int]): Boolean = {
-      if(word1.keys.size != word2.keys.size) return false
-      for (k <- word1.keys) {
-        if (!word2.contains(k)) {
-          return false
-        }
-      }
-
-      true
-    }
-
-    def findAnagrams(words: ArrayBuffer[(String, mutable.HashMap[Char, Int])]) = {
+  def anagramSortA(arr: ArrayBuffer[String]): Unit = {
+    val tempBuffer: ArrayBuffer[(String, String)] = ArrayBuffer()
 
 
-    }
-
-    for (i <- arr.indices) {
-      val map = getCharMap(i)
-      for(c <- arr(i)) {
-        if(map.contains(c)) {
-          map(c) += 1
-        } else {
-          map += (c -> 1)
-        }
-      }
-    }
-
-    for (l <- lengthMap.keys) {
-      if(lengthMap(l).length > 1) {
-
+    def lessThanWord(w1: (String, String), w2: (String, String)): Boolean = {
+      if (w1._2 < w2._2) {
+        true
       } else {
-        tempBuffer.append(lengthMap(l).head._1)
+        false
       }
     }
+    def greaterThanWord(w1: (String, String), w2: (String, String)): Boolean = {
+      if (w1._2 > w2._2) {
+        true
+      } else {
+        false
+      }
+    }
+
+    def sortLetters(word: String): String = {
+      val charBuffer: ArrayBuffer[Char] = ArrayBuffer()
+      for (l <- word) {
+        charBuffer += l
+      }
+
+      Util.Sort.quickSort(charBuffer, lessThanChar, greaterThanChar)
+      charBuffer.mkString("")
+    }
+
+    for (word <- arr) {
+      tempBuffer.append((word, sortLetters(word)))
+    }
+
+    Util.Sort.quickSort(tempBuffer, lessThanWord, greaterThanWord)
+
+    for (i <- tempBuffer.indices) {
+      arr(i) = tempBuffer(i)._1
+    }
+  }
+
+
+  /**
+    * Sort a list of strings so that anagrams are next to each other
+    * Approach:
+    *   Keep a hash table of the anagrams with a list of the words that match
+    *   Use the sorted string as the key
+    * @param arr The array of strings to sort
+    */
+  def anagramSort(arr: ArrayBuffer[String]): Unit = {
+    val map: mutable.HashMap[String, ListBuffer[String]] = mutable.HashMap()
+
+    def sortLetters(word: String): String = {
+      val charBuffer: ArrayBuffer[Char] = ArrayBuffer()
+      for (l <- word) {
+        charBuffer += l
+      }
+
+      Util.Sort.quickSort(charBuffer, lessThanChar, greaterThanChar)
+      charBuffer.mkString("")
+    }
+
+    for (w <- arr) {
+      val sortedWord = sortLetters(w)
+      if(!map.contains(sortedWord)) {
+        map += (sortedWord -> new ListBuffer[String])
+      }
+      map(sortedWord).append(w)
+    }
+
+    var index = 0
+
+    for(k <- map.keys) {
+      for(w <- map(k)) {
+        arr(index) = w
+        index += 1
+      }
+    }
+
   }
 }
