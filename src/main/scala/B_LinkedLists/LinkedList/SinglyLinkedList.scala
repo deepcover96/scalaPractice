@@ -7,9 +7,9 @@ class SinglyLinkedList {
   def append(node:SingleLinkedNode): Unit = {
     if(lastNode.isEmpty) {
       headNode = Some(node)
+      lastNode = Some(node)
     } else {
       lastNode.get.nextNode = Some(node)
     }
-    lastNode = Some(node)
   }
 }
